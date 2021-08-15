@@ -21,7 +21,7 @@ export default class Todo extends Component {
   render() {
     const { id, todo, del } = this.props;
     const { checked } = this.state;
-    console.log(todo);
+    // console.log(todo);
     return (
       <li id={id}>
         <input type="checkbox" onChange={this.handleChecked} />

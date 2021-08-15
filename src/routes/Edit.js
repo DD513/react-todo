@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "./App";
 
@@ -8,7 +8,6 @@ export default class Edit extends Component {
   };
   componentDidMount = () => {
     const { id } = this.props.match.params;
-    const update = this.props.defaultValue;
     const data = localStorage.getItem("todoList")
       ? JSON.parse(localStorage.getItem("todoList"))
       : [];
@@ -16,27 +15,28 @@ export default class Edit extends Component {
     if (data.length > 0) {
       this.setState(
         {
-          todoList: data[id],
+          todoList: data,
         },
         () => {
           console.log(this.state);
         }
       );
     }
-    
   };
+  
 
   handleEditTodo = () => {
-    const  updatevalue  = this.state;
-    
-    console.log('hi',updatevalue);
+    const updateArray = localStorage.getItem("todoList")
+      ? JSON.parse(localStorage.getItem("todoList"))
+      : [];
+    const { id } = this.props.match.params;
+    const { todoList } = this.state;  
+    updateArray[id] = todoList
+    localStorage.setItem("todoList", JSON.stringify(updateArray));
   }
-
   render() {
-    
     const { id } = this.props.match.params;
     const { todoList } = this.state;
-    console.log(id);
     return (
       <div>
         <input

@@ -17,13 +17,20 @@ export default class App extends Component {
           todoList: data,
         },
         () => {
-          console.log(this.state);
+          console.log(this.state,localStorage);
         }
       );
     }
   };
 
-  handleonDelete = (e) => {};
+  handleonDelete = (index) => {
+    const deleteArray = localStorage.getItem("todoList")
+      ? JSON.parse(localStorage.getItem("todoList"))
+      : [];
+      deleteArray.splice(index,1)
+    console.log('pp',index,deleteArray)
+    localStorage.setItem("todoList", JSON.stringify(deleteArray));
+  }
 
   render() {
     const { todoList } = this.state;
